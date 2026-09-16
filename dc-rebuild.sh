@@ -31,7 +31,6 @@ SERVICE=${1:-}
 
 # Check required shared API configuration before stopping the running site.
 docker compose config --quiet
-docker compose pull frontend
 
 set -x
 # Tear down containers and networks cleanly

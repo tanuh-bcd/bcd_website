@@ -34,17 +34,21 @@ services:
     ports:
       - "127.0.0.1:3001:3001"
     environment:
-      PORTAL_API_ORIGIN: ${PORTAL_API_ORIGIN:?Set PORTAL_API_ORIGIN to the shared portal backend origin}
+      # Beta research site intentionally shares the portal-dev public API/data.
+      PORTAL_API_ORIGIN: ${PORTAL_API_ORIGIN:-https://bc-portal-dev.tanuh.ai}
       HOST: 0.0.0.0
     networks:
       - tanuhnet
     restart: always
 
   frontend:
-    # The portal publishes one tested image for both domains.
-    image: ${SHARED_FRONTEND_IMAGE:?Set SHARED_FRONTEND_IMAGE to a tested immutable portal image}
-    environment:
-      SITE_MODE: research
+    build:
+      context: ./questionnaire-app
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ""
+        VITE_QUESTIONNAIRE_VERSION: ${VITE_QUESTIONNAIRE_VERSION:-}
+        SKIP_FETCH: "1"
     container_name: frontend
     ports:
       - "3000:80" 
