@@ -40,6 +40,8 @@ gcp-service-account.json
 # Test coverage
 coverage/
 *.lcov
+test-results/
+playwright-report/
 
 # Local configuration overrides
 *.local

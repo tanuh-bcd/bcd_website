@@ -29,6 +29,9 @@ fi
 
 SERVICE=${1:-}
 
+# Check required shared API configuration before stopping the running site.
+docker compose config --quiet
+
 set -x
 # Tear down containers and networks cleanly
 if [[ -n "$SERVICE" ]]; then

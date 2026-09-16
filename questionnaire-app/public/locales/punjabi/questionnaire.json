@@ -43,13 +43,12 @@
       "questions": [
         {
           "key": "Q44",
-          "type": "text"
+          "type": "text",
+          "required": true
         },
         {
           "key": "Q45",
-          "type": "select-plus-text",
-          "otherOptionId": "q45_other_specify",
-          "otherPlaceholder": "Please specify institute name",
+          "type": "hospital-select",
           "required": true
         },
         {
@@ -273,7 +272,7 @@
       ]
     },
     {
-      "title": "Section 2: Breast Examination (BE)",
+      "title": "Section 2: Clinical Breast Examination (CBE)",
       "questions": [
         {
           "key": "Q27",
@@ -366,7 +365,7 @@
       ]
     },
     {
-      "title": "Section 3: Beyond BE",
+      "title": "Section 3: Beyond CBE",
       "questions": [
         {
           "key": "Q38",
@@ -459,7 +458,8 @@
         "₹2,00,000 ਪ੍ਰਤੀ ਸਾਲ ਤੋਂ ਘੱਟ",
         "₹2,00,000 ਅਤੇ ₹5,00,000 ਪ੍ਰਤੀ ਸਾਲ ਦੇ ਵਿਚਕਾਰ",
         "₹5,00,000 ਅਤੇ ₹10,00,000 ਪ੍ਰਤੀ ਸਾਲ ਦੇ ਵਿਚਕਾਰ",
-        "₹10,00,000 ਪ੍ਰਤੀ ਸਾਲ ਤੋਂ ਵੱਧ"
+        "₹10,00,000 ਪ੍ਰਤੀ ਸਾਲ ਤੋਂ ਵੱਧ",
+        "ਮੈਂ ਜਵਾਬ ਨਹੀਂ ਦੇਣਾ ਚਾਹੁੰਦਾ/ਚਾਹੁੰਦੀ"
       ]
     },
     "Q6": {
@@ -468,7 +468,8 @@
         "ਕੋਈ ਰਸਮੀ ਸਿੱਖਿਆ ਨਹੀਂ",
         "9ਵੀਂ ਸ਼੍ਰੇਣੀ ਤੱਕ (ਪ੍ਰਾਇਮਰੀ/ਮਿਡਲ)",
         "10ਵੀਂ ਜਾਂ 12ਵੀਂ ਸ਼੍ਰੇਣੀ (ਸੈਕੰਡਰੀ/ਹਾਈਅਰ ਸੈਕੰਡਰੀ)",
-        "ਗ੍ਰੈਜੂਏਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਉੱਪਰ"
+        "ਗ੍ਰੈਜੂਏਸ਼ਨ ਅਤੇ ਇਸ ਤੋਂ ਉੱਪਰ",
+        "ਮੈਂ ਜਵਾਬ ਨਹੀਂ ਦੇਣਾ ਚਾਹੁੰਦਾ/ਚਾਹੁੰਦੀ"
       ]
     },
     "Q7": {
@@ -628,7 +629,7 @@
       ]
     },
     "Q27": {
-      "question": "ਕੀ ਤੁਸੀਂ ਕਦੇ ਛਾਤੀ ਦੀ ਜਾਂਚ (BE) ਕਰਵਾਈ ਹੈ?",
+      "question": "ਕੀ ਤੁਸੀਂ ਕਦੇ ਛਾਤੀ ਦੀ ਜਾਂਚ (CBE) ਕਰਵਾਈ ਹੈ?",
       "answers": [
         "ਹਾਂ",
         "ਨੰ"
@@ -652,7 +653,7 @@
       ]
     },
     "Q30": {
-      "question": "BE ਦੇ ਦੌਰਾਨ, ਕੀ ਤੁਹਾਡੀ ਛਾਤੀ ਵਿੱਚ ਕੋਈ ਗੰਢ ਜਾਂ ਪੁੰਜ ਪਾਇਆ ਗਿਆ ਸੀ?",
+      "question": "CBE ਦੇ ਦੌਰਾਨ, ਕੀ ਤੁਹਾਡੀ ਛਾਤੀ ਵਿੱਚ ਕੋਈ ਗੰਢ ਜਾਂ ਪੁੰਜ ਪਾਇਆ ਗਿਆ ਸੀ?",
       "answers": [
         "ਹਾਂ",
         "ਨੰ"
@@ -753,17 +754,12 @@
       ]
     },
     "Q44": {
-      "question": "ਆਪਣੀ ਮਰੀਜ਼ ID ਦਰਜ ਕਰੋ (ਜੇ ਕੋਈ ਹੈ, ਤਾਂ ਛੱਡੋ):",
+      "question": "ਆਪਣੀ ਸਬਜੈਕਟ ID ਦਰਜ ਕਰੋ:",
       "answers": []
     },
     "Q45": {
-      "question": "ਹਸਪਤਾਲ ਦੀ ID ਦਰਜ ਕਰੋ (ਜੇ ਕੋਈ ਹੈ, ਤਾਂ ਛੱਡੋ):",
-      "answers": [
-        "Shanmuga Hospital Limited",
-        "Sri Chamundeshwari Medical College Hospital & Research Institute",
-        "Other",
-        "Test"
-      ]
+      "question": "ਸੰਸਥਾ ਦਾ ਨਾਮ:",
+      "answers": []
     },
     "Q46": {
       "question": "Preferred Language:",
@@ -776,10 +772,6 @@
         "ਪੁਰਸ਼",
         "ਹੋਰ"
       ]
-    },
-    "q45_other_specify": {
-      "question": "Institute Name (Other):",
-      "answers": []
     }
   }
 }

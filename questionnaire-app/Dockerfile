@@ -90,10 +90,12 @@ RUN npm ci --no-audit --no-fund
 COPY . .
 
 ARG VITE_API_URL
+ARG VITE_QUESTIONNAIRE_VERSION
 ARG SKIP_FETCH=1
 
 # ✅ Set environment variables for the build
 ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_QUESTIONNAIRE_VERSION=${VITE_QUESTIONNAIRE_VERSION}
 ENV SKIP_FETCH=${SKIP_FETCH}
 
 # ✅ Build the frontend, skipping DB fetch during Docker build
@@ -117,4 +119,3 @@ COPY apache.htaccess /usr/local/apache2/htdocs/.htaccess
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -q --spider -U docker-healthcheck http://127.0.0.1/ || exit 1
 CMD ["httpd-foreground"]
-

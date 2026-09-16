@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "schema:export": "node mysql_explorer/export_schema_csv.js",
-    "fetch:questionnaire": "echo 'scripts/fetch_questionnaire.js not found'"
+    "fetch:questionnaire": "echo 'scripts/fetch_questionnaire.js not found'",
+    "test:smoke": "playwright test"
   },
   "dependencies": {
     "@google-cloud/cloud-sql-connector": "^1.11.1",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@playwright/test": "^1.63.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",

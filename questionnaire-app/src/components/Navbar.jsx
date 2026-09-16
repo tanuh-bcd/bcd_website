@@ -10,7 +10,6 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      // Hide on scroll down after 80px, show on scroll up
       if (currentScrollY > scrollY && currentScrollY > 80) {
         setHidden(true);
       } else {
@@ -18,7 +17,6 @@ const Navbar = () => {
       }
       setScrollY(currentScrollY);
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [scrollY]);
@@ -28,9 +26,9 @@ const Navbar = () => {
       <div className="navbar-content">
         <div className="navbar-logo">
           <Link to="/" className="logo-link">
-            <img src="/tanuh.png" alt="Tanuh Logo" className="logo-img" />
-            <img src="/MoE_Logo.svg" alt="MOE Logo" className="logo-img" />
-            <img src="/IISc_logo.png" alt="IISc Logo" className="logo-img iisc-logo" />
+            <img src="/tanuh.png" alt="Tanuh Logo" className="logo-img logo-tanuh" />
+            <img src="/MoE_Logo.svg" alt="MOE Logo" className="logo-img logo-moe" />
+            <img src="/IISc_logo.png" alt="IISc Logo" className="logo-img logo-iisc" />
           </Link>
         </div>
         <div className="navbar-tabs">
@@ -38,11 +36,12 @@ const Navbar = () => {
             Questionnaire
           </Link>
           <Link to="/demo" className={`nav-link ${location.pathname === '/demo' ? 'active' : ''}`}>
-             Demo
+            Demo
           </Link>
           <Link to="/stats" className={`nav-link ${location.pathname === '/stats' ? 'active' : ''}`}>
-             Dashboard
+            Dashboard
           </Link>
+
         </div>
       </div>
     </nav>

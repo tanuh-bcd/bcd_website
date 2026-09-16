@@ -54,7 +54,7 @@ jobs:
               --zone=${{ env.GCP_ZONE }} \
               --project=${{ env.GCP_PROJECT }} \
               --tunnel-through-iap \
-              --command="curl -sf http://localhost:3000/health && curl -sf http://localhost:3001/api/stats | head -c 20" \
+              --command="curl -sf http://localhost:3000/health && curl -sf http://localhost:3001/api/v1/stats/ && curl -sf 'http://localhost:3001/api/v1/patient/questions?lang=en' > /dev/null" \
               --ssh-flag="-o StrictHostKeyChecking=no" 2>/dev/null; then
               echo "Health check passed"
               exit 0

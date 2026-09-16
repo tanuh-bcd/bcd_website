@@ -1,213 +1,124 @@
-
-import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
-import Consent from './components/Consent';
-import './App.css';
-// --- NEW: Import the translation hook ---
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import mixpanel from 'mixpanel-browser';
+import Consent from './components/Consent';
+import Questionnaire from './components/Questionnaire';
+import ThankYou from './components/ThankYou';
+import { buildDatabaseForm, getLanguageCode, portalRequest } from './services/portal';
 
-import questionnaireDataEng from '../public/locales/english/questionnaire.json' with { type: 'json' };
-
-// Lazy load large components
-const Questionnaire = lazy(() => import('./components/Questionnaire'));
-const ThankYou = lazy(() => import('./components/ThankYou'));
-
-function QuestionnaireFlow() {
-  const [appState, setAppState] = useState('consent');
+export default function QuestionnaireFlow() {
+  const { i18n, ready } = useTranslation(['consent', 'questionnaire', 'thankyou']);
+  const language = getLanguageCode(i18n.resolvedLanguage || i18n.language);
+  const [step, setStep] = useState('consent');
+  const [bundle, setBundle] = useState(null);
+  const [error, setError] = useState('');
+  const [retry, setRetry] = useState(0);
+  const [busy, setBusy] = useState(false);
   const [sessionId, setSessionId] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [riskResult, setRiskResult] = useState(null);
-  const [finalFormData, setFinalFormData] = useState(null);
-  const [hospitalList, setHospitalList] = useState(null);
-  const API_URL = (import.meta.env.VITE_API_URL || '').replace(/^["'](.+)["']$/, '$1');
+  const [result, setResult] = useState(null);
+  const [answers, setAnswers] = useState(null);
+  const versionRef = useRef(import.meta.env.VITE_QUESTIONNAIRE_VERSION || null);
+  const operationPending = useRef(false);
 
   useEffect(() => {
-    mixpanel.track('Page View', { page: 'Questionnaire Flow' });
-  }, []);
-
-  useEffect(() => {
-    const fetchHospitals = async () => {
+    const controller = new AbortController();
+    setError('');
+    setBundle(null);
+    async function load() {
       try {
-        const res = await fetch(`${API_URL}/api/hospitals`);
-        const data = await res.json();
-        if (data.success && data.hospitals) {
-          const list = data.hospitals.filter(h => h !== 'Other' && h !== 'Test');
-          setHospitalList([...list, 'Other', 'Test']);
+        const query = new URLSearchParams({ lang: language });
+        if (versionRef.current) query.set('version', versionRef.current);
+        const rows = await portalRequest(`/api/v1/patient/questions?${query}`, { signal: controller.signal });
+        const form = buildDatabaseForm(rows);
+        query.set('version', form.version);
+        const englishQuery = new URLSearchParams({ lang: 'en', version: form.version });
+        const [consent, englishRows] = await Promise.all([
+          portalRequest(`/api/participant-information?${query}`, { signal: controller.signal }),
+          language === 'en' ? rows : portalRequest(`/api/v1/patient/questions?${englishQuery}`, { signal: controller.signal }),
+        ]);
+        if (!consent.title || !consent.header || !consent.headernames || !Array.isArray(consent.sections)) {
+          throw new Error('Consent information is incomplete. Please try again.');
         }
-      } catch (e) {
-        console.error('Failed to fetch hospitals:', e);
-      }
-    };
-    fetchHospitals();
-  }, [API_URL]);
-
-  const safeFetch = async (url, options) => {
-    let res;
-    try {
-      res = await fetch(url, options);
-    } catch (e) {
-      console.error(`❌ Network error fetching ${url}:`, e);
-      throw new Error(`Network error: ${e.message}`);
-    }
-
-    const text = await res.text();
-
-    if (!res.ok) {
-      console.error(`❌ HTTP error ${res.status} from ${url}:`, text.slice(0, 200));
-      throw new Error(`Server returned ${res.status}: ${text.slice(0, 100)}`);
-    }
-
-    try {
-      return JSON.parse(text);
-    } catch {
-      console.error(`❌ Invalid JSON from ${url}:`, text.slice(0, 200));
-      throw new Error('Invalid JSON received from backend.');
-    }
-  };
-
-
-  // console.log("Current language:", i18n.language);
-
-  // --- MODIFIED: Load translations and get the 'ready' flag ---
-  // We specify all namespaces here to ensure they are loaded
-  const { t, ready } = useTranslation(['consent', 'questionnaire', 'thankyou']);
-
-  // Get the entire translated objects for the current language
-  // We use the 't' function with the namespace prefix
-  const formStructure = t('questionnaire:formStructure', { returnObjects: true });
-  const questionnaireData = t('questionnaire:questions', { returnObjects: true });
-  const questionnaireDataEnBase = questionnaireDataEng.questions;
-  const formStructureEn = questionnaireDataEng.formStructure;
-  const questionnaireDataEngRaw = questionnaireDataEng;
-
-  const questionnaireDataEn = useMemo(() => {
-    if (!hospitalList || !questionnaireDataEnBase) return questionnaireDataEnBase;
-    return { ...questionnaireDataEnBase, Q45: { ...questionnaireDataEnBase.Q45, answers: hospitalList } };
-  }, [questionnaireDataEnBase, hospitalList]);
-
-  const mergedQuestionnaireData = useMemo(() => {
-    if (!hospitalList || !questionnaireData) return questionnaireData;
-    return { ...questionnaireData, Q45: { ...questionnaireData.Q45, answers: hospitalList } };
-  }, [questionnaireData, hospitalList]);
-  
-  // --- END MODIFICATION ---
-
-  const { i18n } = useTranslation();
-
-
-  const handleConsent = async ({ file } = {}) => {
-    try {
-      console.log(`Starting session via: ${API_URL}/api/session/start`);
-      const data = await safeFetch(`${API_URL}/api/session/start`, { method: 'POST' });
-
-      if (data.success && data.sessionId) {
-        setSessionId(data.sessionId);
-        setAppState('questionnaire');
-        window.scrollTo(0, 0);
-        mixpanel.track('Started Questionnaire', { session_id: data.sessionId });
-
-        if (file) {
-          const formData = new FormData();
-          formData.append('file', file);
-          fetch(`${API_URL}/api/session/${data.sessionId}/consent`, {
-            method: 'POST',
-            body: formData,
-          }).catch(err => console.error('Consent upload failed (non-blocking):', err));
+        if (!controller.signal.aborted) {
+          versionRef.current = form.version;
+          setBundle({ ...buildDatabaseForm(rows, englishRows), consent });
         }
-      } else {
-        console.error('Session start failed:', data);
-        alert(t('consent:errors.sessionStart', 'Could not start a session. Please try again.'));
+      } catch (err) {
+        if (!controller.signal.aborted) setError(err.message);
       }
-    } catch (error) {
-      console.error('Error starting session:', error);
-      const diagnosticMsg = `Error: ${error.message}. API_URL: "${API_URL}".`;
-      console.error(diagnosticMsg);
-      alert(`${t('consent:errors.sessionConnect', 'Could not connect to the server to start a session.')}\n\nTechnical details: ${error.message}`);
     }
-  };
+    load();
+    return () => controller.abort();
+  }, [language, retry]);
 
-  const handleSubmit = async (formData, formDataEn) => {
-    if (!sessionId) {
-      alert('Session ID is missing. Cannot submit form.');
-      return;
-    }
-    formDataEn = { ...formDataEn };
-    if (!formDataEn.Q46) {
-        formDataEn.Q46 = i18n.language;
-    }
-    // console.log('Final data to submit (English):', formDataEn);     
-
-    
-    setIsSubmitting(true);
-    setFinalFormData(formDataEn); // Store the final data for the PDF
-    // console.log('Submitting Form Data:', { formData, formDataEn });
-
+  async function handleConsent({ file } = {}) {
+    if (!bundle || operationPending.current) return;
+    operationPending.current = true;
+    setBusy(true);
+    setError('');
     try {
-      const result = await safeFetch(`${API_URL}/api/submit`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId, formDataEn }),
-      });
-      console.log('Submission Result:', result);
-
-      if (result.success) {
-        setRiskResult(result.riskPercentage);
-        setAppState('submitted');
-        mixpanel.track('Completed Questionnaire', { 
-          session_id: sessionId, 
-          risk_percentage: result.riskPercentage 
-        });
-      } else {
-        alert(t('questionnaire:ui.errors.validationAlert')); // Use translated error
-        setFinalFormData(null);
+      let id = sessionId;
+      if (!id) {
+        const response = await portalRequest(`/api/session/start?version=${bundle.version}`, { method: 'POST' });
+        if (!response.success || !response.sessionId || Number(response.questionnaireVersion) !== bundle.version) {
+          throw new Error('The session does not match this questionnaire. Please reload.');
+        }
+        id = response.sessionId;
+        setSessionId(id);
       }
-    } catch (error) {
-      alert('Could not connect to the server to submit the form.'); // Generic error
-      setFinalFormData(null);
+      if (file) {
+        const body = new FormData();
+        body.append('file', file);
+        await portalRequest(`/api/session/${id}/consent`, { method: 'POST', body });
+      }
+      setStep('questionnaire');
+      window.scrollTo(0, 0);
+    } catch (err) {
+      setError(err.message);
     } finally {
-      setIsSubmitting(false);
+      operationPending.current = false;
+      setBusy(false);
     }
-  };
+  }
 
-  const LoadingFallback = () => (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif' }}>
-      Loading...
+  async function handleSubmit(_localized, english) {
+    if (!sessionId || operationPending.current) return;
+    operationPending.current = true;
+    setBusy(true);
+    setError('');
+    try {
+      const response = await portalRequest('/api/submit', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, formDataEn: english }),
+      });
+      if (!response.success) throw new Error('Submission failed. Please try again.');
+      setAnswers(english);
+      setResult(response.riskCalculated ? response.riskPercentage : null);
+      setStep('submitted');
+      window.scrollTo(0, 0);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      operationPending.current = false;
+      setBusy(false);
+    }
+  }
+
+  if (!ready || !bundle) return (
+    <div role={error ? 'alert' : 'status'} style={{ padding: 32, textAlign: 'center' }}>
+      {error ? <><p>Could not load the questionnaire: {error}</p><button onClick={() => setRetry(value => value + 1)}>Retry</button></> : 'Loading questionnaire…'}
     </div>
   );
 
-  if (!ready) {
-    return <LoadingFallback />;
-  }
-  // --- END NEW LOADING CHECK ---
-
-  // --- Passing diagnostics to Questionnaire ---
   return (
-    <div className="app-container">
-      {appState === 'consent' && <Consent onAccept={handleConsent} />}
-
-      <Suspense fallback={<LoadingFallback />}>
-        {appState === 'questionnaire' && (
-          <Questionnaire
-            onSubmit={handleSubmit}
-            isSubmitting={isSubmitting}
-            // Pass the loaded data down
-            formStructure={formStructure}
-            questionnaireData={mergedQuestionnaireData}
-            questionnaireDataEn={questionnaireDataEn}
-          />
-        )}
-        {appState === 'submitted' && (
-          <ThankYou
-            riskResult={riskResult}
-            formData={finalFormData}
-            sessionId={sessionId}
-            // Pass the loaded data down
-            formStructure={formStructureEn}
-            questionnaireData={questionnaireDataEn}
-          />
-        )}
-      </Suspense>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px 16px', width: '100%' }}>
+      {step === 'consent' && <Consent key={language} content={bundle.consent} onAccept={handleConsent} isStarting={busy} error={error} />}
+      {step === 'questionnaire' && <>
+        {error && <p role="alert" style={{ color: '#b42318' }}>{error}</p>}
+        <Questionnaire onSubmit={handleSubmit} isSubmitting={busy} formStructure={bundle.formStructure}
+          questionnaireData={bundle.localized} questionnaireDataEn={bundle.english} />
+      </>}
+      {step === 'submitted' && <ThankYou riskResult={result} formData={answers} sessionId={sessionId}
+        formStructure={bundle.formStructure} questionnaireData={bundle.english} />}
     </div>
   );
 }
-export default QuestionnaireFlow;

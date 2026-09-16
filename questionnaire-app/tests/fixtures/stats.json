@@ -1,0 +1,234 @@
+{
+  "totalSubjects": 1162,
+  "institutionsEmpanelled": 17,
+  "statesCount": 6,
+  "imageStudies": 876,
+  "imageRecords": 861,
+  "riskBins": [
+    {
+      "name": "Baseline Risk",
+      "value": 534
+    },
+    {
+      "name": "Evident Risk",
+      "value": 313
+    },
+    {
+      "name": "Significant Risk",
+      "value": 264
+    },
+    {
+      "name": "High Risk",
+      "value": 51
+    }
+  ],
+  "hospitalBins": [
+    {
+      "name": "SHL",
+      "no_risk": 75,
+      "low": 37,
+      "moderate": 29,
+      "high": 11
+    },
+    {
+      "name": "SCMCHRI",
+      "no_risk": 170,
+      "low": 62,
+      "moderate": 34,
+      "high": 4
+    },
+    {
+      "name": "GEMS",
+      "no_risk": 42,
+      "low": 23,
+      "moderate": 69,
+      "high": 1
+    },
+    {
+      "name": "JSS",
+      "no_risk": 57,
+      "low": 59,
+      "moderate": 65,
+      "high": 23
+    },
+    {
+      "name": "SSCDC",
+      "no_risk": 108,
+      "low": 91,
+      "moderate": 37,
+      "high": 6
+    },
+    {
+      "name": "BALCO",
+      "no_risk": 20,
+      "low": 12,
+      "moderate": 15,
+      "high": 3
+    },
+    {
+      "name": "GKNM",
+      "no_risk": 3,
+      "low": 1,
+      "moderate": 1,
+      "high": 0
+    },
+    {
+      "name": "KIMS",
+      "no_risk": 35,
+      "low": 18,
+      "moderate": 6,
+      "high": 1
+    },
+    {
+      "name": "MUH",
+      "no_risk": 7,
+      "low": 4,
+      "moderate": 0,
+      "high": 0
+    },
+    {
+      "name": "VIMS",
+      "no_risk": 13,
+      "low": 3,
+      "moderate": 7,
+      "high": 2
+    },
+    {
+      "name": "TR",
+      "no_risk": 2,
+      "low": 2,
+      "moderate": 0,
+      "high": 0
+    },
+    {
+      "name": "KMCH",
+      "no_risk": 1,
+      "low": 0,
+      "moderate": 0,
+      "high": 0
+    },
+    {
+      "name": "AIMSR",
+      "no_risk": 0,
+      "low": 1,
+      "moderate": 0,
+      "high": 0
+    },
+    {
+      "name": "OMC",
+      "no_risk": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 0
+    },
+    {
+      "name": "NIMS",
+      "no_risk": 1,
+      "low": 0,
+      "moderate": 0,
+      "high": 0
+    }
+  ],
+  "ageBins": [
+    {
+      "name": "18-29",
+      "no_risk": 19,
+      "low": 7,
+      "moderate": 5,
+      "high": 0
+    },
+    {
+      "name": "30-39",
+      "no_risk": 79,
+      "low": 27,
+      "moderate": 8,
+      "high": 2
+    },
+    {
+      "name": "40-49",
+      "no_risk": 310,
+      "low": 123,
+      "moderate": 58,
+      "high": 3
+    },
+    {
+      "name": "50-59",
+      "no_risk": 123,
+      "low": 108,
+      "moderate": 127,
+      "high": 18
+    },
+    {
+      "name": "60-69",
+      "no_risk": 3,
+      "low": 39,
+      "moderate": 48,
+      "high": 22
+    },
+    {
+      "name": "70+",
+      "no_risk": 0,
+      "low": 10,
+      "moderate": 18,
+      "high": 6
+    }
+  ],
+  "monthBins": [
+    {
+      "name": "Jan 2026",
+      "no_risk": 0,
+      "low": 1,
+      "moderate": 2,
+      "high": 1
+    },
+    {
+      "name": "Mar 2026",
+      "no_risk": 31,
+      "low": 12,
+      "moderate": 13,
+      "high": 3
+    },
+    {
+      "name": "Apr 2026",
+      "no_risk": 4,
+      "low": 4,
+      "moderate": 6,
+      "high": 6
+    },
+    {
+      "name": "May 2026",
+      "no_risk": 7,
+      "low": 4,
+      "moderate": 4,
+      "high": 2
+    },
+    {
+      "name": "Jun 2026",
+      "no_risk": 174,
+      "low": 103,
+      "moderate": 77,
+      "high": 14
+    },
+    {
+      "name": "Jul 2026",
+      "no_risk": 110,
+      "low": 54,
+      "moderate": 63,
+      "high": 9
+    },
+    {
+      "name": "Aug 2026",
+      "no_risk": 126,
+      "low": 88,
+      "moderate": 76,
+      "high": 11
+    },
+    {
+      "name": "Sep 2026",
+      "no_risk": 82,
+      "low": 47,
+      "moderate": 23,
+      "high": 5
+    }
+  ]
+}

@@ -1,0 +1,647 @@
+{
+  "totalAssessments": 882,
+  "totals": {
+    "imaging_studies": 1162,
+    "reports": 827,
+    "total": 1989
+  },
+  "viewTypeCounts": [
+    {
+      "name": "CC_LEFT",
+      "count": 853
+    },
+    {
+      "name": "CC_RIGHT",
+      "count": 854
+    },
+    {
+      "name": "MLO_LEFT",
+      "count": 849
+    },
+    {
+      "name": "MLO_RIGHT",
+      "count": 850
+    }
+  ],
+  "setCompleteness": [
+    {
+      "name": "Complete (4 views)",
+      "value": 831
+    },
+    {
+      "name": "Partial (1-3 views)",
+      "value": 44
+    },
+    {
+      "name": "No mammogram",
+      "value": 7
+    }
+  ],
+  "reportCompleteness": [
+    {
+      "name": "Report Uploaded",
+      "value": 827
+    },
+    {
+      "name": "No Report",
+      "value": 55
+    }
+  ],
+  "completionRate": {
+    "reportsUploaded": 827,
+    "totalSubjects": 1162,
+    "rate": 71.17
+  },
+  "byHospital": [
+    {
+      "hospital_name": "Sri Chamundeshwari Medical College Hospital & Research Institute",
+      "short_name": "SCMCHRI",
+      "state": "Karnataka",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "Mammo_AWS",
+          "make": "Allengers DM",
+          "technology": "DR",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 270,
+      "assessment_count": 238,
+      "dicom_count": 238,
+      "report_count": 236,
+      "both_dicom_and_report_count": 236
+    },
+    {
+      "hospital_name": "Sudarsana Scans and Colour Doppler Centre",
+      "short_name": "SSCDC",
+      "state": "Tamil Nadu",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "SENO DMR - GE DMR",
+          "make": "GE Medical Systems S.A.",
+          "technology": "Mammography (X-Ray Breast Imaging Equipment) - GE Medical Systems",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 242,
+      "assessment_count": 209,
+      "dicom_count": 207,
+      "report_count": 209,
+      "both_dicom_and_report_count": 207
+    },
+    {
+      "hospital_name": "Shanmuga Hospital Limited",
+      "short_name": "SHL",
+      "state": "Tamil Nadu",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "FLAT III",
+          "make": "METALTRONICA S.p.A.",
+          "technology": "Mammography",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 152,
+      "assessment_count": 128,
+      "dicom_count": 120,
+      "report_count": 127,
+      "both_dicom_and_report_count": 119
+    },
+    {
+      "hospital_name": "JSS Hospital",
+      "short_name": "JSS",
+      "state": "Karnataka",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Mammography System",
+          "make": "METALTRONICA SPA, Italy (Manufactured for Philips Germany)",
+          "technology": "Mammography (Digital Mammography X-ray System)",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 204,
+      "assessment_count": 104,
+      "dicom_count": 104,
+      "report_count": 104,
+      "both_dicom_and_report_count": 104
+    },
+    {
+      "hospital_name": "GEMS Hospital",
+      "short_name": "GEMS",
+      "state": "Andhra Pradesh",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Console5810",
+          "make": "CARESTREAM",
+          "technology": "CR",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 135,
+      "assessment_count": 101,
+      "dicom_count": 100,
+      "report_count": 53,
+      "both_dicom_and_report_count": 52
+    },
+    {
+      "hospital_name": "KIMS Amalapuram",
+      "short_name": "KIMS",
+      "state": "Andhra Pradesh",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Mammography Analog",
+          "make": "Allengers",
+          "technology": "MAM Venus",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 60,
+      "assessment_count": 56,
+      "dicom_count": 56,
+      "report_count": 54,
+      "both_dicom_and_report_count": 54
+    },
+    {
+      "hospital_name": "Balco Medical Centre",
+      "short_name": "BALCO",
+      "state": "Chhattisgarh",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "AMULET Innovality",
+          "make": "Fujifilm",
+          "technology": "Digital Mammography",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 50,
+      "assessment_count": 36,
+      "dicom_count": 36,
+      "report_count": 35,
+      "both_dicom_and_report_count": 35
+    },
+    {
+      "hospital_name": "MedUnited Hospital",
+      "short_name": "MUH",
+      "state": "Telangana",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Mammography Analog",
+          "make": "Allengers",
+          "technology": "MAM Venus",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 11,
+      "assessment_count": 7,
+      "dicom_count": 7,
+      "report_count": 7,
+      "both_dicom_and_report_count": 7
+    },
+    {
+      "hospital_name": "G Kuppuswamy Naidu Memorial Hospital",
+      "short_name": "GKNM",
+      "state": "Tamil Nadu",
+      "type": "DR",
+      "machines": [],
+      "subject_count": 5,
+      "assessment_count": 2,
+      "dicom_count": 2,
+      "report_count": 2,
+      "both_dicom_and_report_count": 2
+    },
+    {
+      "hospital_name": "Osmania Medical College",
+      "short_name": "OMC",
+      "state": "Telangana",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "FDR AMULET Innovality",
+          "make": "Fujifilm",
+          "technology": "FFDM (Full-Field Digital Mammography)",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 1,
+      "assessment_count": 1,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Sri Madhusudan Sai Institute of Medical Sciences and Research",
+      "short_name": "SMSIMSR",
+      "state": "Karnataka",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Senographe Crystal",
+          "make": "GE Healthcare",
+          "technology": "Full Field Digital Mammography (FFDM)",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 0,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Vydehi Institute of Medical Sciences & Research Centre",
+      "short_name": "VIMS",
+      "state": "Karnataka",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "Selenia Dimensions 3D",
+          "make": "Hologic",
+          "technology": "Digital Breast Tomosynthesis (DBT)",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 25,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Apollo Institute of Medical Sciences & Research",
+      "short_name": "AIMSR",
+      "state": "Andhra Pradesh",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "MAM Venus",
+          "make": "Allengers",
+          "technology": "CR",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 1,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "KOVAI MEDICAL CENTER AND HOSPITAL",
+      "short_name": "KMCH",
+      "state": "Tamil Nadu",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "Selenia Dimensions 3D",
+          "make": "Hologic",
+          "technology": "Digital Breast Tomosynthesis (DBT)",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 1,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Nizams Institute of Medical Sciences",
+      "short_name": "NIMS",
+      "state": "Telangana",
+      "type": "CR",
+      "machines": [
+        {
+          "machine_name": "Lilyum",
+          "make": "Metaltronica S.p.A.",
+          "technology": "Analog Mammography",
+          "machine_count": 1
+        }
+      ],
+      "subject_count": 1,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Global Health Limited",
+      "short_name": "Medanta",
+      "state": "Haryana",
+      "type": "DR",
+      "machines": [
+        {
+          "machine_name": "Mammomat Inspiration",
+          "make": "Siemens Limited",
+          "technology": "2",
+          "machine_count": 2
+        }
+      ],
+      "subject_count": 0,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    },
+    {
+      "hospital_name": "Telerad Foundation",
+      "short_name": "TR",
+      "state": "Karnataka",
+      "type": "DR",
+      "machines": [],
+      "subject_count": 4,
+      "assessment_count": 0,
+      "dicom_count": 0,
+      "report_count": 0,
+      "both_dicom_and_report_count": 0
+    }
+  ],
+  "hospitalTypeBreakdown": [
+    {
+      "name": "CR",
+      "value": 9,
+      "hospitals": [
+        {
+          "hospital_id": "clinic_00003",
+          "hospital_name": "Shanmuga Hospital Limited",
+          "short_name": "SHL",
+          "state": "Tamil Nadu"
+        },
+        {
+          "hospital_id": "clinic_00005",
+          "hospital_name": "JSS Hospital",
+          "short_name": "JSS",
+          "state": "Karnataka"
+        },
+        {
+          "hospital_id": "clinic_00006",
+          "hospital_name": "KIMS Amalapuram",
+          "short_name": "KIMS",
+          "state": "Andhra Pradesh"
+        },
+        {
+          "hospital_id": "clinic_00007",
+          "hospital_name": "GEMS Hospital",
+          "short_name": "GEMS",
+          "state": "Andhra Pradesh"
+        },
+        {
+          "hospital_id": "clinic_00008",
+          "hospital_name": "Sudarsana Scans and Colour Doppler Centre",
+          "short_name": "SSCDC",
+          "state": "Tamil Nadu"
+        },
+        {
+          "hospital_id": "clinic_00009",
+          "hospital_name": "MedUnited Hospital",
+          "short_name": "MUH",
+          "state": "Telangana"
+        },
+        {
+          "hospital_id": "clinic_00011",
+          "hospital_name": "Sri Madhusudan Sai Institute of Medical Sciences and Research",
+          "short_name": "SMSIMSR",
+          "state": "Karnataka"
+        },
+        {
+          "hospital_id": "clinic_00013",
+          "hospital_name": "Apollo Institute of Medical Sciences & Research",
+          "short_name": "AIMSR",
+          "state": "Andhra Pradesh"
+        },
+        {
+          "hospital_id": "clinic_00016",
+          "hospital_name": "Nizams Institute of Medical Sciences",
+          "short_name": "NIMS",
+          "state": "Telangana"
+        }
+      ]
+    },
+    {
+      "name": "DR",
+      "value": 8,
+      "hospitals": [
+        {
+          "hospital_id": "clinic_00004",
+          "hospital_name": "Sri Chamundeshwari Medical College Hospital & Research Institute",
+          "short_name": "SCMCHRI",
+          "state": "Karnataka"
+        },
+        {
+          "hospital_id": "clinic_00012",
+          "hospital_name": "Vydehi Institute of Medical Sciences & Research Centre",
+          "short_name": "VIMS",
+          "state": "Karnataka"
+        },
+        {
+          "hospital_id": "clinic_00014",
+          "hospital_name": "KOVAI MEDICAL CENTER AND HOSPITAL",
+          "short_name": "KMCH",
+          "state": "Tamil Nadu"
+        },
+        {
+          "hospital_id": "clinic_00015",
+          "hospital_name": "Balco Medical Centre",
+          "short_name": "BALCO",
+          "state": "Chhattisgarh"
+        },
+        {
+          "hospital_id": "clinic_00017",
+          "hospital_name": "Osmania Medical College",
+          "short_name": "OMC",
+          "state": "Telangana"
+        },
+        {
+          "hospital_id": "clinic_00018",
+          "hospital_name": "Global Health Limited",
+          "short_name": "Medanta",
+          "state": "Haryana"
+        },
+        {
+          "hospital_id": "clinic_00019",
+          "hospital_name": "G Kuppuswamy Naidu Memorial Hospital",
+          "short_name": "GKNM",
+          "state": "Tamil Nadu"
+        },
+        {
+          "hospital_id": "clinic_00020",
+          "hospital_name": "Telerad Foundation",
+          "short_name": "TR",
+          "state": "Karnataka"
+        }
+      ]
+    }
+  ],
+  "reportsByHospital": [
+    {
+      "hospital_id": "clinic_00008",
+      "hospital_name": "Sudarsana Scans and Colour Doppler Centre",
+      "short_name": "SSCDC",
+      "report_count": 417
+    },
+    {
+      "hospital_id": "clinic_00004",
+      "hospital_name": "Sri Chamundeshwari Medical College Hospital & Research Institute",
+      "short_name": "SCMCHRI",
+      "report_count": 236
+    },
+    {
+      "hospital_id": "clinic_00003",
+      "hospital_name": "Shanmuga Hospital Limited",
+      "short_name": "SHL",
+      "report_count": 127
+    },
+    {
+      "hospital_id": "clinic_00005",
+      "hospital_name": "JSS Hospital",
+      "short_name": "JSS",
+      "report_count": 105
+    },
+    {
+      "hospital_id": "clinic_00006",
+      "hospital_name": "KIMS Amalapuram",
+      "short_name": "KIMS",
+      "report_count": 54
+    },
+    {
+      "hospital_id": "clinic_00007",
+      "hospital_name": "GEMS Hospital",
+      "short_name": "GEMS",
+      "report_count": 54
+    },
+    {
+      "hospital_id": "clinic_00015",
+      "hospital_name": "Balco Medical Centre",
+      "short_name": "BALCO",
+      "report_count": 37
+    },
+    {
+      "hospital_id": "clinic_00009",
+      "hospital_name": "MedUnited Hospital",
+      "short_name": "MUH",
+      "report_count": 7
+    },
+    {
+      "hospital_id": "clinic_00019",
+      "hospital_name": "G Kuppuswamy Naidu Memorial Hospital",
+      "short_name": "GKNM",
+      "report_count": 3
+    },
+    {
+      "hospital_id": "clinic_00011",
+      "hospital_name": "Sri Madhusudan Sai Institute of Medical Sciences and Research",
+      "short_name": "SMSIMSR",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00012",
+      "hospital_name": "Vydehi Institute of Medical Sciences & Research Centre",
+      "short_name": "VIMS",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00013",
+      "hospital_name": "Apollo Institute of Medical Sciences & Research",
+      "short_name": "AIMSR",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00014",
+      "hospital_name": "KOVAI MEDICAL CENTER AND HOSPITAL",
+      "short_name": "KMCH",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00016",
+      "hospital_name": "Nizams Institute of Medical Sciences",
+      "short_name": "NIMS",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00017",
+      "hospital_name": "Osmania Medical College",
+      "short_name": "OMC",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00018",
+      "hospital_name": "Global Health Limited",
+      "short_name": "Medanta",
+      "report_count": 0
+    },
+    {
+      "hospital_id": "clinic_00020",
+      "hospital_name": "Telerad Foundation",
+      "short_name": "TR",
+      "report_count": 0
+    }
+  ],
+  "biradsCategory": [
+    {
+      "category": "0",
+      "subjects": 17,
+      "images": 62
+    },
+    {
+      "category": "1",
+      "subjects": 524,
+      "images": 2049
+    },
+    {
+      "category": "2",
+      "subjects": 194,
+      "images": 760
+    },
+    {
+      "category": "3",
+      "subjects": 57,
+      "images": 220
+    },
+    {
+      "category": "4",
+      "subjects": 22,
+      "images": 86
+    },
+    {
+      "category": "5",
+      "subjects": 3,
+      "images": 8
+    },
+    {
+      "category": "6",
+      "subjects": 4,
+      "images": 16
+    }
+  ],
+  "biradsDensity": [
+    {
+      "density": "A",
+      "subjects": 135,
+      "images": 534
+    },
+    {
+      "density": "B",
+      "subjects": 346,
+      "images": 1345
+    },
+    {
+      "density": "C",
+      "subjects": 309,
+      "images": 1198
+    },
+    {
+      "density": "D",
+      "subjects": 32,
+      "images": 128
+    }
+  ],
+  "assessmentInstitutesCount": 10,
+  "assessmentStatesCount": 5
+}

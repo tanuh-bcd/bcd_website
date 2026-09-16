@@ -43,13 +43,12 @@
       "questions": [
         {
           "key": "Q44",
-          "type": "text"
+          "type": "text",
+          "required": true
         },
         {
           "key": "Q45",
-          "type": "select-plus-text",
-          "otherOptionId": "q45_other_specify",
-          "otherPlaceholder": "Please specify institute name",
+          "type": "hospital-select",
           "required": true
         },
         {
@@ -273,7 +272,7 @@
       ]
     },
     {
-      "title": "Section 2: Breast Examination (BE)",
+      "title": "Section 2: Clinical Breast Examination (CBE)",
       "questions": [
         {
           "key": "Q27",
@@ -366,7 +365,7 @@
       ]
     },
     {
-      "title": "Section 3: Beyond BE",
+      "title": "Section 3: Beyond CBE",
       "questions": [
         {
           "key": "Q38",
@@ -459,7 +458,8 @@
         "₹2,00,000 पेक्षा कमी दरवर्षी",
         "₹2,00,000 – ₹5,00,000 दरवर्षी",
         "₹5,00,000 – ₹10,00,000 दरवर्षी",
-        "₹10,00,000 पेक्षा जास्त दरवर्षी"
+        "₹10,00,000 पेक्षा जास्त दरवर्षी",
+        "मला उत्तर द्यायचे नाही"
       ]
     },
     "Q6": {
@@ -468,7 +468,8 @@
         "औपचारिक शिक्षण नाही",
         "इयत्ता 9 पर्यंत (प्राथमिक/माध्यमिक)",
         "इयत्ता 10 किंवा 12 (माध्यमिक/उच्च माध्यमिक)",
-        "पदवी आणि त्यापुढे"
+        "पदवी आणि त्यापुढे",
+        "मला उत्तर द्यायचे नाही"
       ]
     },
     "Q7": {
@@ -628,7 +629,7 @@
       ]
     },
     "Q27": {
-      "question": "तुम्ही कधी स्तन तपासणी (BE) करून घेतली आहे का?",
+      "question": "तुम्ही कधी स्तन तपासणी (CBE) करून घेतली आहे का?",
       "answers": [
         "होय",
         "नाही"
@@ -754,17 +755,12 @@
       ]
     },
     "Q44": {
-      "question": "तुमचा पेशेंट आयडी (रुग्ण आयडी) एंटर करा (असल्यास, नसल्यास रिकामे ठेवा):",
+      "question": "तुमचा सब्जेक्ट आयडी एंटर करा:",
       "answers": []
     },
     "Q45": {
-      "question": "हॉस्पिटल आयडी लिहा (असल्यास, नसल्यास रिकामे ठेवा):",
-      "answers": [
-        "Shanmuga Hospital Limited",
-        "Sri Chamundeshwari Medical College Hospital & Research Institute",
-        "Other",
-        "Test"
-      ]
+      "question": "संस्थेचे नाव:",
+      "answers": []
     },
     "Q46": {
       "question": "Preferred Language:",
@@ -777,10 +773,6 @@
         "पुरुष",
         "इतर"
       ]
-    },
-    "q45_other_specify": {
-      "question": "Institute Name (Other):",
-      "answers": []
     }
   }
 }

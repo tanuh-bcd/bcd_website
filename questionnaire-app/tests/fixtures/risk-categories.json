@@ -1,0 +1,38 @@
+[
+  {
+    "id": 5,
+    "riskCategory": "Baseline",
+    "lifetimeRiskPercentage": "≤ 14%",
+    "description": "The \"Baseline\" Category: Most women fall in this group, with no major known risk indicators.",
+    "recommendation": "Routine screening",
+    "versionNumber": 2,
+    "displayOrder": 1
+  },
+  {
+    "id": 6,
+    "riskCategory": "Evident",
+    "lifetimeRiskPercentage": "15% - 19%",
+    "description": "The \"Watchful\" Category: You have a few mild risk indicators that may be worth monitoring over time.",
+    "recommendation": "Continue routine screening. Yearly mammography based screening is mandatory.",
+    "versionNumber": 2,
+    "displayOrder": 2
+  },
+  {
+    "id": 7,
+    "riskCategory": "Significant",
+    "lifetimeRiskPercentage": "20% - 24%",
+    "description": "The \"Increased\" Category: You have at least one strong risk indicator that places you at a moderately elevated risk.",
+    "recommendation": "Routine screening with yearly mammography being mandatory. Supplemental screening is needed as well.",
+    "versionNumber": 2,
+    "displayOrder": 3
+  },
+  {
+    "id": 8,
+    "riskCategory": "High",
+    "lifetimeRiskPercentage": "≥ 25%",
+    "description": "The \"Intensive\" Category: You are at the highest risk and need closer clinical attention.",
+    "recommendation": "Routine screening with yearly mammography being mandatory. Additional annual screening including breast MRI is desirable. Genetic counseling and relatives screening might be necessary.",
+    "versionNumber": 2,
+    "displayOrder": 4
+  }
+]

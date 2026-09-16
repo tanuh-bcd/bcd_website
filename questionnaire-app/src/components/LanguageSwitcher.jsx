@@ -14,7 +14,6 @@ const languages = [
   { code: 'marathi', name: 'मराठी' },
   { code: 'gujarati', name: 'ગુજરાતી' },
   { code: 'punjabi', name: 'ਪੰਜਾਬੀ' },
-  { code: 'assamese', name: 'অসমীয়া' },
   { code: 'odia', name: 'ଓଡ଼ିଆ' },
 ];
 
@@ -43,7 +42,7 @@ function LanguageSwitcher() {
   return (
     <div className="language-switcher-wrapper">
       <div className="language-switcher-container" ref={dropdownRef}>
-        <button 
+        <button
           className={`lang-select-button ${isOpen ? 'open' : ''}`}
           onClick={() => setIsOpen(!isOpen)}
           aria-haspopup="listbox"
@@ -61,7 +60,7 @@ function LanguageSwitcher() {
         {isOpen && (
           <ul className="lang-dropdown-menu" role="listbox">
             {languages.map((lang) => (
-              <li 
+              <li
                 key={lang.code}
                 role="option"
                 aria-selected={i18n.language === lang.code}
