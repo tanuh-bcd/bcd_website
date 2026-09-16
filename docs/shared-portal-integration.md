@@ -53,9 +53,9 @@ and rejection of non-public API routes.
 
 ## Deployment preparation
 
-1. Configure `PORTAL_API_ORIGIN` in the deployment directory's `.env`. The example
-   uses the portal dev site for comparison. Select the stable shared backend origin
-   before production rollout; this repo does not deploy or migrate that backend.
+1. `PORTAL_API_ORIGIN` defaults to `https://bc-portal-dev.tanuh.ai` for this beta.
+   It may be overridden in the deployment directory's `.env`; this repo does not
+   deploy or migrate that backend.
 2. The upstream must provide the current portal public APIs and versioned schema,
    including participant information, question keys and questionnaire versions.
 3. Keep `VITE_API_URL` empty: the browser uses the research domain's `/api` routes.
@@ -66,13 +66,10 @@ and rejection of non-public API routes.
    against the intended portal deployment before pushing to `main`.
 
 `main` pushes trigger `.github/workflows/deploy.yml` and deploy to GCP. The rebuild
-script checks Compose configuration before stopping containers. API origin is
-required explicitly so a deployment cannot accidentally fall back to old scoring.
+script checks Compose configuration before stopping containers.
 Production readiness still requires verifying the chosen upstream and an approved
 end-to-end submission against a test database (the automated smoke test mocks writes).
 
-The portal repository now owns the frontend image. The research deployment runs that
-same immutable image with `SITE_MODE=research`, so future portal layout and renderer
-changes reach both sites through the release sequence. Database content changes still
-appear without a frontend rebuild. Pin research to a tested portal commit SHA rather
-than the mutable `latest` tag so rollback remains predictable.
+The research frontend is kept in this repository. Database consent, questions and
+dashboard data update without rebuilding. Portal layout or renderer code changes must
+be reviewed and copied here when the two sites should remain visually identical.
