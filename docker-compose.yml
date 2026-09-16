@@ -41,16 +41,10 @@ services:
     restart: always
 
   frontend:
-    build:
-      context: ./questionnaire-app
-      dockerfile: Dockerfile
-      args:
-        # VITE_API_URL: http://backend:3001
-        # VITE_API_URL: "http://localhost:3001"   # ✅ passes backend URL into frontend build
-        # VITE_API_URL: ${VITE_API_URL:-http://backend:3001}
-        VITE_API_URL: ""
-        VITE_QUESTIONNAIRE_VERSION: ${VITE_QUESTIONNAIRE_VERSION:-}
-        SKIP_FETCH: "1"
+    # The portal publishes one tested image for both domains.
+    image: ${SHARED_FRONTEND_IMAGE:?Set SHARED_FRONTEND_IMAGE to a tested immutable portal image}
+    environment:
+      SITE_MODE: research
     container_name: frontend
     ports:
       - "3000:80" 

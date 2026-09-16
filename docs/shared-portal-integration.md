@@ -71,6 +71,8 @@ required explicitly so a deployment cannot accidentally fall back to old scoring
 Production readiness still requires verifying the chosen upstream and an approved
 end-to-end submission against a test database (the automated smoke test mocks writes).
 
-The UI is a source snapshot, not a shared package. Database content changes appear
-without rebuilding; future portal layout/renderer changes must be ported or moved
-into a shared package to keep the two sites synchronized.
+The portal repository now owns the frontend image. The research deployment runs that
+same immutable image with `SITE_MODE=research`, so future portal layout and renderer
+changes reach both sites through the release sequence. Database content changes still
+appear without a frontend rebuild. Pin research to a tested portal commit SHA rather
+than the mutable `latest` tag so rollback remains predictable.
