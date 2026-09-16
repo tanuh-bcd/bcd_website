@@ -32,26 +32,19 @@ services:
       dockerfile: backend/Dockerfile
     container_name: backend
     ports:
-      - "3001:3001"
+      - "127.0.0.1:3001:3001"
     environment:
-      - MYSQL_PORT=3306
-      - USE_CLOUD_SQL_CONNECTOR=true
-      - CLOUD_SQL_IP_TYPE=PRIVATE
-      - MYSQL_POOL_SIZE=25
+      PORTAL_API_ORIGIN: ${PORTAL_API_ORIGIN:?Set PORTAL_API_ORIGIN to the shared portal backend origin}
+      HOST: 0.0.0.0
     networks:
       - tanuhnet
     restart: always
 
   frontend:
-    build:
-      context: ./questionnaire-app
-      dockerfile: Dockerfile
-      args:
-        # VITE_API_URL: http://backend:3001
-        # VITE_API_URL: "http://localhost:3001"   # ✅ passes backend URL into frontend build
-        # VITE_API_URL: ${VITE_API_URL:-http://backend:3001}
-        VITE_API_URL: ""
-        SKIP_FETCH: "1"
+    # The portal publishes one tested image for both domains.
+    image: ${SHARED_FRONTEND_IMAGE:?Set SHARED_FRONTEND_IMAGE to a tested immutable portal image}
+    environment:
+      SITE_MODE: research
     container_name: frontend
     ports:
       - "3000:80" 

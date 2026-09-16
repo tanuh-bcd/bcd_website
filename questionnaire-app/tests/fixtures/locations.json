@@ -1,0 +1,172 @@
+[
+  {
+    "id": "clinic_00003",
+    "name": "Shanmuga Hospital Limited",
+    "short_name": "SHL",
+    "city": "Salem",
+    "state": "Tamil Nadu",
+    "latitude": 11.6687,
+    "longitude": 78.1543,
+    "subjects": 152
+  },
+  {
+    "id": "clinic_00004",
+    "name": "Sri Chamundeshwari Medical College Hospital & Research Institute",
+    "short_name": "SCMCHRI",
+    "city": "Ramanagara",
+    "state": "Karnataka",
+    "latitude": 12.6324,
+    "longitude": 77.1836,
+    "subjects": 270
+  },
+  {
+    "id": "clinic_00005",
+    "name": "JSS Hospital",
+    "short_name": "JSS",
+    "city": "Mysuru",
+    "state": "Karnataka",
+    "latitude": 12.2959,
+    "longitude": 76.6479,
+    "subjects": 204
+  },
+  {
+    "id": "clinic_00006",
+    "name": "KIMS Amalapuram",
+    "short_name": "KIMS",
+    "city": "Amalapuram",
+    "state": "Andhra Pradesh",
+    "latitude": 16.5776,
+    "longitude": 81.9974,
+    "subjects": 60
+  },
+  {
+    "id": "clinic_00007",
+    "name": "GEMS Hospital",
+    "short_name": "GEMS",
+    "city": "Srikakulam",
+    "state": "Andhra Pradesh",
+    "latitude": 18.3969,
+    "longitude": 83.845,
+    "subjects": 135
+  },
+  {
+    "id": "clinic_00008",
+    "name": "Sudarsana Scans and Colour Doppler Centre",
+    "short_name": "SSCDC",
+    "city": "Salem",
+    "state": "Tamil Nadu",
+    "latitude": 11.6804,
+    "longitude": 78.1371,
+    "subjects": 242
+  },
+  {
+    "id": "clinic_00009",
+    "name": "MedUnited Hospital",
+    "short_name": "MUH",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "latitude": 17.4062,
+    "longitude": 78.4738,
+    "subjects": 11
+  },
+  {
+    "id": "clinic_00011",
+    "name": "Sri Madhusudan Sai Institute of Medical Sciences and Research",
+    "short_name": "SMSIMSR",
+    "city": "Chikkaballapura taluk",
+    "state": "Karnataka",
+    "latitude": 13.4813273,
+    "longitude": 77.7440446,
+    "subjects": 0
+  },
+  {
+    "id": "clinic_00012",
+    "name": "Vydehi Institute of Medical Sciences & Research Centre",
+    "short_name": "VIMS",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "latitude": 12.9691973,
+    "longitude": 77.7439482,
+    "subjects": 25
+  },
+  {
+    "id": "clinic_00013",
+    "name": "Apollo Institute of Medical Sciences & Research",
+    "short_name": "AIMSR",
+    "city": "Chittoor",
+    "state": "Andhra Pradesh",
+    "latitude": 13.2564413,
+    "longitude": 79.1177376,
+    "subjects": 1
+  },
+  {
+    "id": "clinic_00014",
+    "name": "KOVAI MEDICAL CENTER AND HOSPITAL",
+    "short_name": "KMCH",
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "latitude": 11.0338144,
+    "longitude": 77.0285774,
+    "subjects": 1
+  },
+  {
+    "id": "clinic_00015",
+    "name": "Balco Medical Centre",
+    "short_name": "BALCO",
+    "city": "Abhanpur Tahsil",
+    "state": "Chhattisgarh",
+    "latitude": 21.0826909,
+    "longitude": 81.7536949,
+    "subjects": 50
+  },
+  {
+    "id": "clinic_00016",
+    "name": "Nizams Institute of Medical Sciences",
+    "short_name": "NIMS",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "latitude": 17.4269817,
+    "longitude": 78.4549584,
+    "subjects": 1
+  },
+  {
+    "id": "clinic_00017",
+    "name": "Osmania Medical College",
+    "short_name": "OMC",
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "latitude": 17.3851472,
+    "longitude": 78.4851482,
+    "subjects": 1
+  },
+  {
+    "id": "clinic_00018",
+    "name": "Global Health Limited",
+    "short_name": "Medanta",
+    "city": "Gurugram",
+    "state": "Haryana",
+    "latitude": 28.4674496,
+    "longitude": 77.0368704,
+    "subjects": 0
+  },
+  {
+    "id": "clinic_00019",
+    "name": "G Kuppuswamy Naidu Memorial Hospital",
+    "short_name": "GKNM",
+    "city": "Coimbatore",
+    "state": "Tamil Nadu",
+    "latitude": 11.0133912,
+    "longitude": 76.984258,
+    "subjects": 5
+  },
+  {
+    "id": "clinic_00020",
+    "name": "Telerad Foundation",
+    "short_name": "TR",
+    "city": "Bengaluru",
+    "state": "Karnataka",
+    "latitude": 12.99013,
+    "longitude": 77.7119196,
+    "subjects": 4
+  }
+]

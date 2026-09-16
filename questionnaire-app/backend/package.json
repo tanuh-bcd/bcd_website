@@ -9,9 +9,10 @@
     "node": ">=18"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node portal-proxy.js",
+    "start:legacy": "node server.js",
     "read-data": "node read_data.js",
-    "test": "echo \"No tests configured\" && exit 0"
+    "test": "node --test portal-proxy.test.js"
   },
   "keywords": [
     "express",

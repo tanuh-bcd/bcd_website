@@ -1,3 +1,9 @@
+# Shared portal integration
+
+The research site now uses the portal's database-driven public flow without login.
+See [setup, smoke test and deployment instructions](docs/shared-portal-integration.md).
+The older standalone setup below describes the retained legacy backend.
+
 # tanuh_website
 
 A simple repository that currently contains:

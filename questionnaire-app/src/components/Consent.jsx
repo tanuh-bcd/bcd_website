@@ -1,123 +1,21 @@
-// // src/components/Consent.jsx
-// import React, { useState } from 'react';
-// import './Consent.css';
-
-// function Consent({ onAccept }) {
-//   const [isChecked, setIsChecked] = useState(false);
-
-//   return (
-//     <div className="consent-container">
-//       <h2>Consent</h2>
-//       <p>By participating in this survey, you agree to provide your information for the purpose of this research. Your participation is completely voluntary.</p>
-
-//       <h3>Purpose</h3>
-//       <p>The information you provide will be used for research to better understand the risk factors for breast cancer in the Indian population. Our goal is to create a model that can help individuals assess their personal risk and empower them to make informed health decisions. The model will calculate a 5-year and lifetime breast cancer risk score for each participant. This study is for research purposes only, and the information will not be used to provide a medical diagnosis or treatment plan.</p>
-
-//       <h3>Security</h3>
-//       <p>All data you submit will be stored securely. No personally identifiable information are collected. The data will be de-identified and analyzed in an aggregated format, so it will be impossible to link your responses back to you.</p>
-      
-//       <h3>Transparency (Data Usage)</h3>
-//       <p>The data collected will be used exclusively for academic research related to breast cancer risk factors and assessment. It may be shared with other researchers and collaborators for the same purpose, but it will always be in a de-identified and aggregated format. The results of this study may be published in scientific journals or presented at conferences.</p>
-
-//       <div className="consent-checkbox">
-//         <input
-//           type="checkbox"
-//           id="consent-check"
-//           checked={isChecked}
-//           onChange={() => setIsChecked(!isChecked)}
-//         />
-//         <label htmlFor="consent-check">I agree to the above consent statement</label>
-//       </div>
-
-//       <button onClick={onAccept} disabled={!isChecked}>
-//         Accept & Continue
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default Consent;
-
-
-// final updated one
-
-
-// import React, { useState } from 'react';
-// import './Consent.css';
-// import consentData from '../../public/locales/english/consent.json' with { type: 'json' };
-
-// function Consent({ onAccept }) {
-//   const [isChecked, setIsChecked] = useState(false);
-
-//   return (
-//     <div className="consent-container">
-
-//       <img src="/tanuh.png" alt={consentData.logos.tanuhAlt} className="logo tanuh-logo" />
-//       <img src="/IISc_logo.png" alt={consentData.logos.iiscAlt} className="logo iisc-logo" />
-
-//       <h2>{consentData.title}</h2>
-
-//       <div className="consent-header">
-//         <p><strong>Study Title:</strong> {consentData.header.studyTitle}</p>
-//         <p><strong>Sponsor/Institution:</strong> {consentData.header.sponsor}</p>
-//         <p><strong>Program Manager:</strong> {consentData.header.programManager}</p>
-//         <p><strong>IEC Approval No.:</strong> {consentData.header.iecApproval}</p>
-//       </div>
-
-//       {consentData.sections.map((section, idx) => (
-//         <div key={idx} className={section.className ? section.className : 'consent-section'}>
-//           <h3>{section.heading}</h3>
-//           {section.paragraphs.map((para, pIdx) => (
-//             <p key={pIdx} className={para.className || undefined}>
-//               {para.strong && <strong>{para.strong} </strong>}
-//               {para.text}
-//             </p>
-//           ))}
-//         </div>
-//       ))}
-
-//       <div className="consent-checkbox">
-//         <input
-//           type="checkbox"
-//           id="consent-check"
-//           checked={isChecked}
-//           onChange={() => setIsChecked(!isChecked)}
-//         />
-//         <label htmlFor="consent-check">{consentData.checkboxLabel}</label>
-//       </div>
-
-//       <button onClick={onAccept} disabled={!isChecked}>
-//         {consentData.buttonText}
-//       </button>
-//     </div>
-//   );
-// }
-
-// export default Consent;
-
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Consent.css';
 import { useTranslation } from 'react-i18next';
 import { Camera, Upload, X, RefreshCw } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
-import mixpanel from 'mixpanel-browser';
 
-function Consent({ onAccept }) {
+function Consent({ onAccept, content, isStarting, error }) {
   const [isChecked, setIsChecked] = useState(false);
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+  const [informationVoluntary, setInformationVoluntary] = useState(false);
   const [scannedFile, setScannedFile] = useState(null);
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState(null);
   const [facingMode, setFacingMode] = useState('environment');
-  const { t } = useTranslation('consent');
-
+  const { t, i18n } = useTranslation('consent');
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const streamRef = useRef(null);
-
-  useEffect(() => {
-    mixpanel.track('Page View', { page: 'Consent' });
-  }, []);
 
   const startCamera = async (mode = facingMode) => {
     setCameraError(null);
@@ -189,31 +87,39 @@ function Consent({ onAccept }) {
   };
 
   const handleAccept = () => {
-    onAccept({ file: scannedFile || null });
+    onAccept({
+      file: scannedFile || null,
+      ageConfirmed,
+      informationVoluntary,
+    });
   };
+
+  const informedConsent = content.informedConsent;
+  const consentConfirmed = informedConsent
+    ? ageConfirmed && informationVoluntary
+    : isChecked;
 
   return (
     <div className="consent-container">
-
-      <div className="stats-logos-container">
-        <img src="/tanuh.png" alt={t('logos.tanuhAlt')} className="stats-logo" />
-        <img src="/MoE_Logo.svg" alt={t('logos.moeAlt')} className="stats-logo moe-img" />
-        <img src="/IISc_logo.png" alt={t('logos.iiscAlt')} className="stats-logo iisc-img" />
+      <div className="logos-container" style={{ marginBottom: '1.5rem' }}>
+        <img src="/tanuh.png" alt="TANUH Logo" className="logo-tanuh" />
+        <img src="/MoE_Logo.svg" alt="MoE Logo" className="logo-moe" />
+        <img src="/IISc_logo.png" alt="IISc Logo" className="logo-iisc" />
       </div>
-
-      <h2 style={{ textAlign: "center", borderBottom: "none", paddingBottom: 0 }}>{t('mainTitle')}</h2>
-
       <LanguageSwitcher />
 
-      <h2>{t('title')}</h2>
+      {/* Use the 't' function to get the text */}
+      <h2>{content.title}</h2>
 
       <div className="consent-header">
-        <p><strong>{t('headernames.studyTitle')} :</strong> {t('header.studyTitle')}</p>
-        <p><strong>{t('headernames.sponsor')} :</strong> {t('header.sponsor')}</p>
-        <p><strong>{t('headernames.iecApproval')} :</strong> {t('header.iecApproval')}</p>
+        <p><strong>{content.headernames.studyTitle} :</strong> {content.header.studyTitle}</p>
+        <p><strong>{content.headernames.sponsor} :</strong> {content.header.sponsor}</p>
+        <p><strong>{content.headernames.iecApproval} :</strong> {content.header.iecApproval}</p>
       </div>
 
-      {t('sections', { returnObjects: true }).map((section, idx) => (
+      {/* Loop through sections from the JSON file */}
+      {/* {returnObjects: true} is important for looping */}
+      {(content.sections || []).map((section, idx) => (
         <div key={idx} className={section.className ? section.className : 'consent-section'}>
           <h3>{section.heading}</h3>
           {section.paragraphs.map((para, pIdx) => (
@@ -225,6 +131,54 @@ function Consent({ onAccept }) {
         </div>
       ))}
 
+      {informedConsent && (
+        <section className="informed-consent">
+          <h2>{informedConsent.title}</h2>
+
+          <div className="consent-header">
+            {Object.values(informedConsent.projectDetails || {}).map((detail, idx) => (
+              <p key={idx}>
+                <strong>{detail.label} :</strong> {detail.value}
+              </p>
+            ))}
+          </div>
+
+          {(informedConsent.sections || []).map((section, idx) => (
+            <div key={idx} className="consent-section">
+              <h3>{section.heading}</h3>
+              {(section.paragraphs || []).map((paragraph, pIdx) => (
+                <p key={pIdx}>{paragraph.text}</p>
+              ))}
+            </div>
+          ))}
+
+          <div className="participant-consent-block">
+            <h3>{informedConsent.participantConsentHeading}</h3>
+            <p>{informedConsent.declaration}</p>
+
+            <div className="consent-checkbox consent-confirmation">
+              <input
+                type="checkbox"
+                id="age-confirmed"
+                checked={ageConfirmed}
+                onChange={event => setAgeConfirmed(event.target.checked)}
+              />
+              <label htmlFor="age-confirmed">{informedConsent.ageCheckboxLabel}</label>
+            </div>
+
+            <div className="consent-checkbox consent-confirmation">
+              <input
+                type="checkbox"
+                id="information-voluntary"
+                checked={informationVoluntary}
+                onChange={event => setInformationVoluntary(event.target.checked)}
+              />
+              <label htmlFor="information-voluntary">{informedConsent.voluntaryCheckboxLabel}</label>
+            </div>
+          </div>
+        </section>
+      )}
+
       <div className="consent-upload">
         <strong className="consent-upload-title">Consent Upload</strong>
 
@@ -234,11 +188,11 @@ function Consent({ onAccept }) {
               <Camera size={20} />
               Take Photo
             </button>
-            <button type="button" className="action-button upload-btn" onClick={() => document.getElementById('consent-file-input').click()}>
+            <button type="button" className="action-button upload-btn" onClick={() => document.getElementById('consent-file-jsx').click()}>
               <Upload size={20} />
               Upload Image
             </button>
-            <input type="file" id="consent-file-input" accept="image/*,application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
+            <input type="file" id="consent-file-jsx" accept="image/*,application/pdf" onChange={handleFileChange} style={{ display: 'none' }} />
           </div>
         )}
 
@@ -279,22 +233,24 @@ function Consent({ onAccept }) {
         )}
       </div>
 
-      <div className="consent-checkbox">
-        <input
-          type="checkbox"
-          id="consent-check"
-          checked={isChecked}
-          onChange={() => setIsChecked(!isChecked)}
-        />
-        <label htmlFor="consent-check">{t('checkboxLabel')}</label>
-      </div>
+      {!informedConsent && (
+        <div className="consent-checkbox">
+          <input
+            type="checkbox"
+            id="consent-check"
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+          />
+          <label htmlFor="consent-check">{content.checkboxLabel}</label>
+        </div>
+      )}
 
-      <button onClick={handleAccept} disabled={!isChecked}>
-        {t('buttonText')}
+      {error && <p role="alert" style={{ color: "#b42318" }}>{error}</p>}
+      <button onClick={handleAccept} disabled={!consentConfirmed || isStarting}>
+        {isStarting ? 'Starting…' : content.buttonText}
       </button>
     </div>
   );
 }
 
 export default Consent;
-

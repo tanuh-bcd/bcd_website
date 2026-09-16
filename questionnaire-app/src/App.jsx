@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import './App.css'; // Keep the main App CSS for general styling
 
 // Lazy loading pages
@@ -19,9 +20,10 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <div className="main-content">
+      <div className="main-content" style={{ paddingTop: 60 }}>
         <Outlet />
       </div>
+      <Footer />
     </>
   );
 };

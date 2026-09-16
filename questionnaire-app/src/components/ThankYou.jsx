@@ -1,17 +1,13 @@
 import React from 'react';
 import './ThankYou.css';
-// import { formStructure } from './Questionnaire'; // This import is untouched
 import jsPDF from 'jspdf';
 import { Download, CheckCircle } from 'lucide-react';
-// --- MODIFICATION: Import the new JSON file ---
-import thankYouData from '../../public/locales/english/thankyou.json' with { type: 'json' };
+import thankYouData from '../../public/locales/english/thankyou.json';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';   
+import { useEffect, useState } from 'react';
 import RiskTable from './RiskTable';
-import mixpanel from 'mixpanel-browser';
 
 
-// Helper function to determine the risk level based on the score (Unchanged)
 const getRiskLevel = (score, t) => {
     const rows = t('interpretation.data', { returnObjects: true });
     const levels = Array.isArray(rows) ? rows.map(r => r.level) : ["Baseline Risk", "Evident Risk", "Significant Risk", "High Risk"];
@@ -25,19 +21,6 @@ const getRiskLevel = (score, t) => {
     return null;
 };
 
-// const getRiskAction = (score, t) => {
-//     const rows = t('interpretation.data', { returnObjects: true });
-//     const levels = Array.isArray(rows) ? rows.map(r => r.action) : ["Normal Risk", "Moderate Risk", "High Risk", "Very High Risk"];
-
-//     const numScore = parseFloat(score);
-//     if (isNaN(numScore)) return null;
-//     if (numScore < 0.4004) return levels[0];
-//     if (numScore >= 0.4004 && numScore < 0.574) return levels[1];
-//     if (numScore >= 0.574 && numScore < 0.795) return levels[2];
-//     if (numScore >= 0.795) return levels[3];
-//     return null;
-// };
-
 
 const getRiskLevelEn = (score) => {
     const numScore = parseFloat(score);
@@ -49,20 +32,9 @@ const getRiskLevelEn = (score) => {
     return null;
 };
 
-
-// const getRiskActionEn = (score) => {
-//     const numScore = parseFloat(score);
-//     if (isNaN(numScore)) return null;
-//     if (numScore < 0.4004) return "Keep up with routine checkups, like yearly breast exams by a doctor from 30 years of age.";
-//     if (numScore >= 0.4004 && numScore < 0.574) return "Consider breast exams every 6 months from 30 years of age and talk to your doctor about prevention.";
-//     if (numScore >= 0.574 && numScore < 0.795) return "Get breast exams every 4-6 months from 25 years of age and possibly imaging (like mammograms) as advised by your doctor.";
-//     if (numScore >= 0.795) return "Be extra vigilant with breast exams every 4 months from at least 25 years of age and more frequent imaging as per your doctor's advice.";
-//     return null;
-// };
-
 const Riskometer = ({ riskLevel }) => {
     const [needleRotation, setNeedleRotation] = useState(-90);
-    
+
     useEffect(() => {
         const timer = setTimeout(() => {
             const angles = {
@@ -93,20 +65,27 @@ const Riskometer = ({ riskLevel }) => {
     );
 };
 
-function ThankYou({ riskResult, formData, sessionId, formStructure, questionnaireData }) {
+
+// const getRiskActionEn = (score) => {
+//     const numScore = parseFloat(score);
+//     if (isNaN(numScore)) return null;
+//     if (numScore < 0.4004) return "Keep up with routine checkups, like yearly breast exams by a doctor from 30 years of age.";
+//     if (numScore >= 0.4004 && numScore < 0.574) return "Consider breast exams every 6 months from 30 years of age and talk to your doctor about prevention.";
+//     if (numScore >= 0.574 && numScore < 0.795) return "Get breast exams every 4-6 months from 25 years of age and possibly imaging (like mammograms) as advised by your doctor.";
+//     if (numScore >= 0.795) return "Be extra vigilant with breast exams every 4 months from at least 25 years of age and more frequent imaging as per your doctor's advice.";
+//     return null;
+// };
+
+function ThankYou({ riskResult, formData, sessionId, formStructure, questionnaireData, dataCollectionOnly = false }) {
 
     const { t: tThankYou } = useTranslation('thankyou');
     // const { t: tQuestions } = useTranslation('questionnaire');
     // const pdfContentRef = useRef(null); // Ref for the hidden HTML content
-    
+
     // // NEW: Ref to track the main question number across sections
     // const mainQuestionCounterRef = useRef(0);
 
-    useEffect(() => {
-        mixpanel.track('Page View', { page: 'Thank You' });
-    }, []);
-
-    const score = riskResult !== null ? (parseFloat(riskResult) / 100).toFixed(2) : null;
+    const score = riskResult !== null ? (parseFloat(riskResult) / 100).toFixed(4) : null;
     const isMale = formData?.Q47 === 'Male';
     const riskInterpretationData = tThankYou('interpretation.data', { returnObjects: true }) || [];
     const riskInterpretationDataEn = thankYouData.interpretation.data || [];
@@ -123,7 +102,7 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
     // const userRiskAction = score !== null ? getRiskAction(score, tThankYou) : null;
     // const userRiskActionEn = score !== null ? getRiskActionEn(score) : null;
 
-   
+
 
     const handleDownloadPdf = () => {
         if (!formData) {
@@ -138,7 +117,7 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
         const margin = 15;
         let y = 0;
 
-        const themeColor = [98, 0, 238];
+        const themeColor = [20, 134, 140];
 
 
         const sanitizeText = (text) => {
@@ -192,27 +171,27 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
             const qaMargin = margin + 15;
             const boxX = margin + 10;
             const boxWidth = pageWidth - (margin * 2) - 10;
-            const textWidth = boxWidth - 16; 
+            const textWidth = boxWidth - 16;
 
             const questionTitleAndBody = sanitizeText(`${questionObject.title || ''} ${questionObject.text || ''}`);
             // --- MODIFIED ---
             const answer = sanitizeText(`${thankYouData.pdf.answerPrefix} ${answerText || ''}`);
 
-            const questionFontSize = 9; 
+            const questionFontSize = 9;
             const answerFontSize = 9;
 
-            doc.setFont('helvetica', 'bold'); 
+            doc.setFont('helvetica', 'bold');
             doc.setFontSize(questionFontSize);
             const questionLines = doc.splitTextToSize(questionTitleAndBody, textWidth);
             const questionHeight = doc.getTextDimensions(questionLines, {fontSize: questionFontSize}).h;
 
-            doc.setFont('helvetica', 'normal'); 
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(answerFontSize);
-            const answerLines = doc.splitTextToSize(answer, textWidth - 5); 
+            const answerLines = doc.splitTextToSize(answer, textWidth - 5);
             const answerHeight = doc.getTextDimensions(answerLines, {fontSize: answerFontSize}).h;
 
             const boxPaddingVertical = 8;
-            const spaceBetweenQA = 4; 
+            const spaceBetweenQA = 4;
 
             const contentHeight = questionHeight + spaceBetweenQA + answerHeight;
             const totalBoxHeight = contentHeight + (boxPaddingVertical * 2);
@@ -226,20 +205,20 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
             doc.setLineWidth(0.2);
             doc.roundedRect(boxX, y, boxWidth, totalBoxHeight, 3, 3, 'FD');
 
-            let textY = y + boxPaddingVertical; 
+            let textY = y + boxPaddingVertical;
 
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(questionFontSize);
             doc.setTextColor(50, 50, 50);
-            doc.text(questionLines, qaMargin, textY + 3); 
+            doc.text(questionLines, qaMargin, textY + 3);
             textY += questionHeight + spaceBetweenQA;
 
-            doc.setFont('helvetica', 'normal'); 
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(answerFontSize);
             doc.setTextColor(80, 80, 80);
-            doc.text(answerLines, qaMargin + 5, textY + 3); 
+            doc.text(answerLines, qaMargin + 5, textY + 3);
 
-            y += totalBoxHeight + 8; 
+            y += totalBoxHeight + 8;
         };
 
 
@@ -307,14 +286,14 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
 
 
         // --- ADD DISCLAIMER TEXT (Corrected for Width) ---
-        if (y > pageHeight - 40) addPageWithTemplate(); 
+        if (y > pageHeight - 40) addPageWithTemplate();
         const disclaimerX = margin + 10;
-        const disclaimerY = y + 5; 
-        const redColor = [224, 57, 68]; 
+        const disclaimerY = y + 5;
+        const redColor = [224, 57, 68];
         const disclaimerFontSize = 9;
         // --- MODIFIED ---
         const disclaimerText = thankYouData.disclaimer.text;
-        
+
         // Draw Asterisk in Red
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(disclaimerFontSize + 1);
@@ -330,18 +309,18 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
         const disclaimerLabel = `${thankYouData.disclaimer.title}:`;
         const disclaimerLabelWidth = doc.getTextWidth(disclaimerLabel);
         doc.text(disclaimerLabel, disclaimerX + 2, disclaimerY);
-        
-        const textStartX = disclaimerX + 2 + disclaimerLabelWidth + 2; 
-        const availableTextWidth = pageWidth - textStartX - margin; 
+
+        const textStartX = disclaimerX + 2 + disclaimerLabelWidth + 2;
+        const availableTextWidth = pageWidth - textStartX - margin;
 
         // Draw main disclaimer text in normal grey, with correct wrapping
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(120, 120, 120);
         const disclaimerLines = doc.splitTextToSize(disclaimerText, availableTextWidth);
         doc.text(disclaimerLines, textStartX, disclaimerY);
-        
+
         const disclaimerHeight = doc.getTextDimensions(disclaimerLines, {fontSize: disclaimerFontSize}).h;
-        y += disclaimerHeight + 10; 
+        y += disclaimerHeight + 10;
         // --- END OF DISCLAIMER ADDITION ---
 
         // --- 3. RENDER Q&A DATA (Logic 100% Unchanged) ---
@@ -357,11 +336,13 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
             const questionsToRender = [];
             const findAnsweredQuestions = (questions, parentNumber) => {
                 questions.forEach((qConfig, index) => {
+                    if (qConfig.condition && qConfig.condition.key !== qConfig.key
+                      && !String(qConfig.condition.value).split('|').map(value => value.trim()).includes(formData[qConfig.condition.key])) return;
                     const name = qConfig.name || qConfig.key; const answer = formData[name];
                     let displayNumber;
                     if (parentNumber) displayNumber = `${parentNumber}${String.fromCharCode(97 + index)}`;
                     else { mainQuestionCounter++; displayNumber = mainQuestionCounter; }
-                    
+
                     // Check if 'questionsObject' is valid before trying to access it
                     const questionText = questionsObject ? questionsObject[qConfig.key]?.question : '';
 
@@ -376,7 +357,7 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
                             answer: Array.isArray(answer) ? answer.join(', ') : answer.toString(),
                         });
                     }
-                    if (qConfig.subQuestions && qConfig.condition && formData[qConfig.condition.key] === qConfig.condition.value) {
+                    if (qConfig.subQuestions) {
                         findAnsweredQuestions(qConfig.subQuestions, displayNumber);
                     }
                 });
@@ -405,14 +386,14 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
     <div className="thank-you-overlay">
       <div className="thank-you-dialog">
         <button className="close-button" onClick={() => window.location.reload()}>&times;</button>
-        
+
         <div className="demo-result-header-centered">
           <div className="thank-you-header">
-            <CheckCircle className="success-icon" size={48} /> 
+            <CheckCircle className="success-icon" size={48} />
             <h3>{tThankYou('title')}</h3>
           </div>
           <p className="demo-thank-you-msg">{tThankYou('message')}</p>
-          
+
           {isMale && (
             <div className="male-disclaimer-container">
               <p className="male-disclaimer-text">
@@ -420,19 +401,19 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
               </p>
             </div>
           )}
-          
+
           {score !== null && !isMale && (
             <div className="demo-risk-status-hero">
-              <h2 className="risk-status-text">{userRiskLevel}</h2> 
+              <h2 className="risk-status-text">{userRiskLevel}</h2>
             </div>
           )}
         </div>
 
-        {score !== null && !isMale && (
+        {!dataCollectionOnly && score !== null && !isMale && (
             <Riskometer riskLevel={userRiskLevelEn || userRiskLevel} />
         )}
 
-        {score !== null && !isMale && (() => {
+        {!dataCollectionOnly && score !== null && !isMale && (() => {
             const highlightedRow = riskInterpretationData.find(
                 (row) => row.level === userRiskLevel
             );
@@ -452,30 +433,30 @@ function ThankYou({ riskResult, formData, sessionId, formStructure, questionnair
             );
         })()}
 
-        {score !== null && !isMale && (
+        {!dataCollectionOnly && score !== null && !isMale && (
             <div style={{ width: '100%' }}>
               <RiskTable />
             </div>
         )}
 
-        <p className="disclaimer-text" style={{ textAlign: 'left', marginTop: '20px', marginBottom: '30px' }}>
-          <span className="disclaimer-asterisk">{tThankYou('disclaimer.asterisk')}</span>
-          <strong>{tThankYou('disclaimer.title')}</strong>:
-          {' '}{tThankYou('disclaimer.text')}
-        </p>
-
-
+        {!dataCollectionOnly && (
+          <p className="disclaimer-text" style={{ textAlign: 'left', marginTop: '20px', marginBottom: '30px' }}>
+            <span className="disclaimer-asterisk">{tThankYou('disclaimer.asterisk')}</span>
+            <strong>{tThankYou('disclaimer.title')}</strong>:
+            {' '}{tThankYou('disclaimer.text')}
+          </p>
+        )}
 
         <div className="action-buttons">
-          {/* --- MODIFIED --- */}
           <button className="ok-button" onClick={() => window.location.reload()}>
             {tThankYou('buttons.ok')}
           </button>
-          <button className="download-button" onClick={handleDownloadPdf}>
-            <Download size={18} style={{ marginRight: '8px' }} /> 
-            {/* --- MODIFIED --- */}
-            {tThankYou('buttons.download')}
-          </button>
+          {!dataCollectionOnly && (
+            <button className="download-button" onClick={handleDownloadPdf}>
+              <Download size={18} style={{ marginRight: '8px' }} />
+              {tThankYou('buttons.download')}
+            </button>
+          )}
         </div>
       </div>
     </div>
