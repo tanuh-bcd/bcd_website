@@ -2,7 +2,10 @@
 
 The research website uses the public UI from `tanuh-bcd/bcd_portal` commit
 `00d96c4d` (2026-09-16), adapted for Vite. Login, admin and clinician pages are
-not included. Consent, question definitions, hospitals, dashboard statistics,
+not included. The public dashboard also includes the September 21 portal changes
+from `4f0aa03ad`: the Retrospective Cases card (using the API
+`retrospectiveCaseCount` field) and horizontal scrolling for the institute table.
+Consent, question definitions, hospitals, dashboard statistics,
 imaging statistics and the risk reference table come from the portal API.
 
 Both sites use the same response database and dashboard totals. The research
@@ -45,7 +48,9 @@ npm run test:smoke
 
 Browser tests intercept every API request. Fixtures contain only public question
 definitions, consent and aggregate dashboard responses captured on 2026-09-16;
-they contain no individual submissions. Tests cover consent gating, version-2
+they contain no individual submissions. The mammogram fixture additionally uses a
+synthetic retrospective case count to verify that the card is independent of report
+totals. Tests cover consent gating, version-2
 conditional/repeated questions, required fields, removal of hidden answers,
 submission, PDF download, content failure, and desktop/mobile dashboard rendering.
 Bridge tests cover version/query forwarding, multipart uploads, error propagation,
