@@ -115,6 +115,9 @@ test('portal dashboard renders database aggregates on desktop and mobile', async
   await expect(page.getByRole('heading', { name: 'Age Distribution', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Risk Categories Reference' })).toBeVisible();
   await expect(page.locator('.stats-error')).toHaveCount(0);
+  const retrospectiveCard = page.locator('.summary-card').filter({ hasText: 'Retrospective Cases' });
+  await expect(retrospectiveCard.locator('.big-number')).toHaveText('123');
+  await expect(page.getByRole('heading', { name: 'Reports Uploaded', exact: true })).toHaveCount(0);
   await page.screenshot({ path: 'test-results/dashboard-desktop.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.getByRole('heading', { name: 'Age Distribution', exact: true })).toBeVisible();
