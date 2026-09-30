@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users as UsersIcon, ScanLine as ScanLineIcon, FolderCheck as FolderCheckIcon } from 'lucide-react';
+import { Users as UsersIcon, Archive, Layers } from 'lucide-react';
 import {
   ResponsiveContainer, Tooltip, Legend,
   BarChart, Bar, XAxis, YAxis, CartesianGrid
@@ -76,6 +76,7 @@ const Stats = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retrospectiveCaseCount, setRetrospectiveCaseCount] = useState(0);
 
   const API_URL = import.meta.env.VITE_API_URL || '';
 
@@ -93,6 +94,21 @@ const Stats = () => {
       }
     };
     fetchStats();
+
+    // Total and Retrospective Case share the imaging API count. Match the
+    // portal fallback: an unavailable count stays at 0 without blocking stats.
+    const fetchRetrospectiveCount = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/v1/mammogram/portal-stats`);
+        if (response.ok) {
+          const json = await response.json();
+          setRetrospectiveCaseCount(json.retrospectiveCaseCount ?? 0);
+        }
+      } catch {
+        /* best-effort */
+      }
+    };
+    fetchRetrospectiveCount();
   }, [API_URL]);
 
   if (loading) return <div className="stats-loader">Loading Dashboard...</div>;
@@ -116,16 +132,16 @@ const Stats = () => {
 
       <div className="summary-section">
         <div className="summary-card">
-          <div className="card-header-with-icon"><UsersIcon className="summary-icon" size={24} /><h3>Subjects</h3></div>
+          <div className="card-header-with-icon"><Layers className="summary-icon" size={24} /><h3>Total</h3></div>
+          <div className="big-number"><AnimatedCounter value={(data.totalSubjects || 0) + retrospectiveCaseCount} /></div>
+        </div>
+        <div className="summary-card">
+          <div className="card-header-with-icon"><UsersIcon className="summary-icon" size={24} /><h3>Total Subjects</h3></div>
           <div className="big-number"><AnimatedCounter value={data.totalSubjects} /></div>
         </div>
         <div className="summary-card">
-          <div className="card-header-with-icon"><ScanLineIcon className="summary-icon" size={24} /><h3>Image Studies</h3></div>
-          <div className="big-number"><AnimatedCounter value={data.imageStudies || 0} /></div>
-        </div>
-        <div className="summary-card">
-          <div className="card-header-with-icon"><FolderCheckIcon className="summary-icon" size={24} /><h3>Image Records</h3></div>
-          <div className="big-number"><AnimatedCounter value={data.imageRecords || 0} /></div>
+          <div className="card-header-with-icon"><Archive className="summary-icon" size={24} /><h3>Retrospective Case</h3></div>
+          <div className="big-number"><AnimatedCounter value={retrospectiveCaseCount} /></div>
         </div>
       </div>
 
@@ -193,7 +209,7 @@ const Stats = () => {
         </div>
       </div>
       <div style={{ marginTop: '20px', width: '100%' }}>
-        <MammogramStats />
+        <MammogramStats imageStudies={data.imageStudies} />
       </div>
       <div className="charts-grid" style={{ marginTop: '20px', overflow: 'visible' }}>
         <RiskPredictionSection />

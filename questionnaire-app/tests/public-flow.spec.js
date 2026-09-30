@@ -115,8 +115,13 @@ test('portal dashboard renders database aggregates on desktop and mobile', async
   await expect(page.getByRole('heading', { name: 'Age Distribution', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Risk Categories Reference' })).toBeVisible();
   await expect(page.locator('.stats-error')).toHaveCount(0);
-  const retrospectiveCard = page.locator('.summary-card').filter({ hasText: 'Retrospective Cases' });
-  await expect(retrospectiveCard.locator('.big-number')).toHaveText('123');
+  const summaryRows = page.locator('.summary-section');
+  await expect(summaryRows.first().locator('h3')).toHaveText(['Total', 'Total Subjects', 'Retrospective Case']);
+  await expect(summaryRows.first().locator('.big-number')).toHaveText(['1285', '1162', '123'], { timeout: 15000 });
+  await expect(summaryRows.nth(1).locator('h3')).toHaveText(['Total Institutions', 'Total States', 'Image Studies']);
+  const imageStudiesCard = page.locator('.summary-card').filter({ hasText: 'Image Studies' });
+  await expect(imageStudiesCard.locator('.big-number')).toHaveText('876');
+  await expect(page.getByRole('heading', { name: 'Image Records', exact: true })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Reports Uploaded', exact: true })).toHaveCount(0);
   await page.screenshot({ path: 'test-results/dashboard-desktop.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });

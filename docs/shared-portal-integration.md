@@ -5,6 +5,12 @@ The research website uses the public UI from `tanuh-bcd/bcd_portal` commit
 not included. The public dashboard also includes the September 21 portal changes
 from `4f0aa03ad`: the Retrospective Cases card (using the API
 `retrospectiveCaseCount` field) and horizontal scrolling for the institute table.
+The dashboard summary layout additionally follows portal commit `626c485eb`:
+Total (subjects + retrospective cases), Total Subjects and Retrospective Case
+appear first; Total Institutions, Total States and Image Studies appear below.
+Image Records is hidden. The retrospective count still comes from the existing
+public mammogram API; no new API route is required.
+
 Consent, question definitions, hospitals, dashboard statistics,
 imaging statistics and the risk reference table come from the portal API.
 
