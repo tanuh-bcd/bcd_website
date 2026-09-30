@@ -8,6 +8,9 @@ from `4f0aa03ad`: the Retrospective Cases card (using the API
 The dashboard summary layout additionally follows portal commit `626c485eb`:
 Total (subjects + retrospective cases), Total Subjects and Retrospective Case
 appear first; Total Institutions, Total States and Image Studies appear below.
+Portal commit `b45b4d7c7` subsequently renames the top row to Total Participants,
+Prospective and Reterospective (matching the current portal spelling). The count
+fields and total calculation are unchanged.
 Image Records is hidden. The retrospective count still comes from the existing
 public mammogram API; no new API route is required.
 
