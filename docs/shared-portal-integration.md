@@ -11,6 +11,9 @@ appear first; Total Institutions, Total States and Image Studies appear below.
 Portal commit `b45b4d7c7` subsequently renames the top row to Total Participants,
 Prospective and Reterospective (matching the current portal spelling). The count
 fields and total calculation are unchanged.
+Portal commit `8cafb247b` adds Total Data Collections as a fourth top card. It sums
+prospective subjects, assessments, mammogram uploads, report uploads and retrospective
+cases from the existing public stats APIs. Summary values use Indian digit grouping.
 Image Records is hidden. The retrospective count still comes from the existing
 public mammogram API; no new API route is required.
 

@@ -116,8 +116,13 @@ test('portal dashboard renders database aggregates on desktop and mobile', async
   await expect(page.getByRole('heading', { name: 'Risk Categories Reference' })).toBeVisible();
   await expect(page.locator('.stats-error')).toHaveCount(0);
   const summaryRows = page.locator('.summary-section');
-  await expect(summaryRows.first().locator('h3')).toHaveText(['Total Participants', 'Prospective', 'Reterospective']);
-  await expect(summaryRows.first().locator('.big-number')).toHaveText(['1285', '1162', '123'], { timeout: 15000 });
+  await expect(summaryRows.first().locator('h3')).toHaveText([
+    'Total Data Collections', 'Total Participants', 'Prospective', 'Reterospective',
+  ]);
+  await expect(summaryRows.first().locator('.big-number')).toHaveText(
+    ['3,869', '1,285', '1,162', '123'],
+    { timeout: 15000 },
+  );
   await expect(summaryRows.nth(1).locator('h3')).toHaveText(['Total Institutions', 'Total States', 'Image Studies']);
   const imageStudiesCard = page.locator('.summary-card').filter({ hasText: 'Image Studies' });
   await expect(imageStudiesCard.locator('.big-number')).toHaveText('876');
